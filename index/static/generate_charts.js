@@ -32,10 +32,23 @@ function fetchData(fileLocation, analysisType) {
       totalCount = totalCount+1;
     });
   }).then(function(data) {
-    console.log('totalCount is: '+totalCount);
-    console.log('PosAvg is: '+rbaPosAvg/totalCount);
-    console.log('negAvg is: '+rbaNegAvg/totalCount);
-    console.log('neuAvg is: '+rbaNeuAvg/totalCount);
+    // console.log('totalCount is: '+totalCount);
+    // console.log('PosAvg is: '+rbaPosAvg/totalCount);
+    // console.log('negAvg is: '+rbaNegAvg/totalCount);
+    // console.log('neuAvg is: '+rbaNeuAvg/totalCount);
+    // Get the averages
+    if (analysisType == 'rba') {
+      rbaPosAvg = rbaPosAvg/totalCount;
+      rbaNegAvg = rbaNegAvg/totalCount;
+      rbaNeuAvg = rbaNeuAvg/totalCount;
+    } else if (analysisType == 'textBlob') {
+
+    } else if (analysisType == 'vader') {
+
+    } else {
+      // do nothing
+    }
+
   });
 }
 
