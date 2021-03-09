@@ -15,7 +15,11 @@ function generatePieChart(positiveValue, negativeValue, field1, field2, pieChart
       pie: {
         label: {
             format: function (value, ratio, id) {
-              return d3.format('%')(ratio);
+
+              // ratio = d3.format(",.2f")(ratio);
+              // ratio = d3.format('%')(ratio);
+              value = d3.format(",.3f")(value);
+              return [value];
             }
         }
       }
