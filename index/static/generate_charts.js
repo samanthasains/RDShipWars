@@ -42,7 +42,7 @@ function fetchData(fileLocation, analysisType) {
       rbaNegAvg = rbaNegAvg/totalCount;
       rbaNeuAvg = rbaNeuAvg/totalCount;
     } else if (analysisType == 'textBlob') {
-
+      
     } else if (analysisType == 'vader') {
 
     } else {
