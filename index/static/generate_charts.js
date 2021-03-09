@@ -60,7 +60,7 @@ function fetchData(fileArr) {
         console.log('rbaPosAvg: '+rbaPosAvg+' rbaNegAvg: '+rbaNegAvg+' rbaNeuAvg: '+rbaNeuAvg);
       } else if (analysisType == 'textBlob') {
         console.log('hit textBlob');
-        textBlobPolarity = textBlobSubjectivity/totalCount;
+        textBlobPolarity = textBlobPolarity/totalCount;
         textBlobSubjectivity = textBlobSubjectivity/totalCount;
         totalCount = 0;
         flagForBlob = true;
@@ -79,7 +79,9 @@ function fetchData(fileArr) {
       }
       if(flagForRBA == true && flagForBlob == true && flagForVader == true) {
         generateBarChart(rbaPosAvg, rbaNegAvg, rbaNeuAvg, textBlobPolarity, textBlobSubjectivity, vaderPosAvg, vaderNegAvg, vaderNeuAvg);
-
+        generatePieChart(rbaPosAvg, rbaNegAvg, 'RBA pos', 'RBA neg', 'pie_chart_1');
+        generatePieChart(textBlobPolarity, textBlobSubjectivity, 'TextBlog polarity', 'TextBlog subjectivity', 'pie_chart_2');
+        generatePieChart(vaderPosAvg, vaderNegAvg, 'Vader pos', 'Vader neg', 'pie_chart_3');
         // set values back to 0
         rbaPosAvg = 0;
         rbaNegAvg = 0;

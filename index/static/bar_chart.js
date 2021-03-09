@@ -4,7 +4,7 @@ function generateBarChart(rbaPosAvg, rbaNegAvg, rbaNeuAvg, textBlobPolarity, tex
       data: {
           columns: [
               ['RBA(Rule Based Approach)', rbaPosAvg, rbaNegAvg, rbaNeuAvg],
-              ['textBlob NLTK', textBlobPolarity, textBlobSubjectivity, 0],
+              ['TextBlob NLTK', textBlobPolarity, textBlobSubjectivity, 0],
               ['Vader NLTK', vaderPosAvg, vaderNegAvg, vaderNeuAvg]
           ],
           type: 'bar'
@@ -19,7 +19,7 @@ function generateBarChart(rbaPosAvg, rbaNegAvg, rbaNeuAvg, textBlobPolarity, tex
       axis: {
         x: {
           type: 'category',
-          categories: ['Pos', 'Neg', 'Neu']
+          categories: ['Pos/Polarity', 'Neg/Subjectivity', 'Neu']
         },
         y: {
           label: 'value from 0.0 to 1.0'
