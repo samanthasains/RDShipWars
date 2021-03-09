@@ -100,12 +100,33 @@ function fetchData(fileArr) {
 
 }
 
+function fetchTop5(fileLocation) {
+  var tweets = [];
+  var tweetspos = [];
+  var tweetsneg = [];
+  var tweetsneu = [];
+  d3.csv(fileLocation).then(function(data) {
+    data.filter(function(d, i) {
+      tweets.push(d.tweets);
+      tweetspos.push(d.pos);
+      tweetsneg.push(d.neg);
+      tweetsneu.push(d.neu);
+    });
+  }).then(function(data) {
+    generateTop5Chart(tweets, tweetspos, tweetsneg, tweetsneu);
+  });
+}
+
 function init(ship) {
   rbaFile = "../rba files/"+ship+"_rba.csv";
   textBlobFile = "../textblob files/"+ship+"Blob.csv";
   vaderFile = "../vader files/"+ship+"_vader.csv";
   var fileArr = [rbaFile, textBlobFile, vaderFile];
   fetchData(fileArr);
+  if (ship == 'varchie') {
+    top5Loc = "../"+ship+"Top5.csv";
+    fetchTop5(top5Loc);
+  }
   // fetchData(rbaFile, "rba");
   // textBlobFile = "../"+ship+"Blob.csv";
   //fetchData(textBlobFile, "textBlob");
