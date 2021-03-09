@@ -3,23 +3,29 @@ var rbaNegAvg = 0;
 var rbaNeuAvg = 0;
 var textBlobPolarity = 0;
 var textBlobSubjectivity = 0;
-var vaderPosAvg = 0.00;
-var vaderNegAvg = 0.00;
-var vaderNeuAvg = 0.00;
+var vaderPosAvg = 0;
+var vaderNegAvg = 0;
+var vaderNeuAvg = 0;
 var totalCount = 0;
 var analysisType;
+var flagForRBA = false;
+var flagForBlob = false;
+var flagForVader = false;
 
 // function fetchData(fileLocation, analysisType) {
 function fetchData(fileArr) {
   fileArr.forEach(function(fileLocation) {
-    if (fileLocation.includes('rba')) {
-      analysisType = 'rba';
-    } else if (fileLocation.includes('textBlob')) {
-      analysisType = 'textBlob';
-    } else if (fileLocation.includes('vader')) {
-      analysisType = 'vader';
-    }
     d3.csv(fileLocation).then(function(data) {
+      if (fileLocation.includes('rba')) {
+        console.log('hit 1');
+        analysisType = 'rba';
+      } else if (fileLocation.includes('Blob')) {
+        console.log('hit 2');
+        analysisType = 'textBlob';
+      } else if (fileLocation.includes('vader')) {
+        console.log('hit 3');
+        analysisType = 'vader';
+      }
       data.filter(function(d, i) {
           // posVal = posVal.toFixed(2);
           if (analysisType == 'rba') {
@@ -30,7 +36,9 @@ function fetchData(fileArr) {
             textBlobPolarity = textBlobPolarity + parseFloat(d.polarity);
             textBlobSubjectivity = textBlobSubjectivity + parseFloat(d.subjectivity);
           } else if (analysisType == 'vader') {
-
+            vaderPosAvg = vaderPosAvg + parseFloat(d.pos);
+            vaderNegAvg = vaderPosAvg + parseFloat(d.neg);
+            vaderNeuAvg = vaderNeuAvg + parseFloat(d.neu);
           } else {
             // do nothing
           }
@@ -43,17 +51,48 @@ function fetchData(fileArr) {
       // console.log('neuAvg is: '+rbaNeuAvg/totalCount);
       // Get the averages
       if (analysisType == 'rba') {
+        console.log('hit rba');
         rbaPosAvg = rbaPosAvg/totalCount;
         rbaNegAvg = rbaNegAvg/totalCount;
         rbaNeuAvg = rbaNeuAvg/totalCount;
+        totalCount = 0;
+        flagForRBA = true;
+        console.log('rbaPosAvg: '+rbaPosAvg+' rbaNegAvg: '+rbaNegAvg+' rbaNeuAvg: '+rbaNeuAvg);
       } else if (analysisType == 'textBlob') {
-
+        console.log('hit textBlob');
+        textBlobPolarity = textBlobSubjectivity/totalCount;
+        textBlobSubjectivity = textBlobSubjectivity/totalCount;
+        totalCount = 0;
+        flagForBlob = true;
+        console.log('textBlobPolarity: '+textBlobPolarity+' textBlobSubjectivity: '+textBlobSubjectivity);
       } else if (analysisType == 'vader') {
+        console.log('hit vader');
+        //Last analysis, so we have all the info so generateBarChart
+        vaderPosAvg = vaderPosAvg/totalCount;
+        vaderNegAvg = vaderNegAvg/totalCount;
+        vaderNeuAvg = vaderNeuAvg/totalCount;
+        console.log('vaderPosAvg: '+vaderPosAvg+' vaderNegAvg: '+vaderNegAvg+' vaderNeuAvg: '+vaderNeuAvg);
+        flagForVader = true;
 
       } else {
         // do nothing
       }
-      generateBarChart(rbaPosAvg, rbaNegAvg, rbaNeuAvg);
+      if(flagForRBA == true && flagForBlob == true && flagForVader == true) {
+        generateBarChart(rbaPosAvg, rbaNegAvg, rbaNeuAvg, textBlobPolarity, textBlobSubjectivity, vaderPosAvg, vaderNegAvg, vaderNeuAvg);
+
+        // set values back to 0
+        rbaPosAvg = 0;
+        rbaNegAvg = 0;
+        rbaNeuAvg = 0;
+        textBlobPolarity = 0;
+        textBlobSubjectivity = 0;
+        vaderPosAvg = 0;
+        vaderNegAvg = 0;
+        vaderNeuAvg = 0;
+        totalCount = 0;
+      }
+      // generateBarChart(rbaPosAvg, rbaNegAvg, rbaNeuAvg);
+
     });
   })
 
@@ -61,13 +100,13 @@ function fetchData(fileArr) {
 
 function init(ship) {
   rbaFile = "../rba files/"+ship+"_rba.csv";
-  textBlobFile = "../"+ship+"Blob.csv";
-  vaderFile = "../"+ship+"_vader.csv";
-  var fileArr = [rbaFile, textBlobFile];
+  textBlobFile = "../textblob files/"+ship+"Blob.csv";
+  vaderFile = "../vader files/"+ship+"_vader.csv";
+  var fileArr = [rbaFile, textBlobFile, vaderFile];
   fetchData(fileArr);
   // fetchData(rbaFile, "rba");
   // textBlobFile = "../"+ship+"Blob.csv";
   //fetchData(textBlobFile, "textBlob");
-  vaderFile = "";
+  // vaderFile = "";
   //fetchData(vaderFile, "vader");
 }

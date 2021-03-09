@@ -1,11 +1,11 @@
-function generateBarChart(rbaPosAvg, rbaNegAvg, rbaNeuAvg) {
+function generateBarChart(rbaPosAvg, rbaNegAvg, rbaNeuAvg, textBlobPolarity, textBlobSubjectivity, vaderPosAvg, vaderNegAvg, vaderNeuAvg) {
   var bar_chart = c3.generate({
       bindto: '#bar_chart',
       data: {
           columns: [
-              ['RBA', rbaPosAvg, rbaNegAvg, rbaNeuAvg],
-              ['textBlob NLTK', rbaPosAvg, rbaNegAvg, rbaNeuAvg],
-              ['Vader NLTK', rbaPosAvg, rbaNegAvg, rbaNeuAvg]
+              ['RBA(Rule Based Approach)', rbaPosAvg, rbaNegAvg, rbaNeuAvg],
+              ['textBlob NLTK', textBlobPolarity, textBlobSubjectivity, 0],
+              ['Vader NLTK', vaderPosAvg, vaderNegAvg, vaderNeuAvg]
           ],
           type: 'bar'
       },
@@ -15,6 +15,15 @@ function generateBarChart(rbaPosAvg, rbaNegAvg, rbaNeuAvg) {
           }
           // or
           //width: 100 // this makes bar width 100px
+      },
+      axis: {
+        x: {
+          type: 'category',
+          categories: ['Pos', 'Neg', 'Neu']
+        },
+        y: {
+          label: 'value from 0.0 to 1.0'
+        }
       }
   });
 }
