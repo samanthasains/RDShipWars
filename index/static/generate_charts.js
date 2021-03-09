@@ -42,11 +42,6 @@ function fetchData(fileLocation, analysisType) {
 function init(ship) {
   rbaFile = "../rba files/"+ship+"_rba.csv";
   fetchData(rbaFile, "rba");
-  //rbaPosAvg = rbaPosAvg / totalCount;
-  //rbaNegAvg = rbaNegAvg / totalCount;
-  //rbaNeuAvg = rbaNeuAvg / totalCount;
-  //console.log('totalCount is: '+totalCount);
-  //console.log('rbaAvg: '+rbaPosAvg+' rbaNegAvg: '+rbaNegAvg+' rbaNeuAvg: '+rbaNeuAvg);
   textBlobFile = "";
   //fetchData(textBlobFile, "textBlob");
   vaderFile = "";
