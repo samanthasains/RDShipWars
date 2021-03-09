@@ -107,7 +107,7 @@ function fetchTop5(fileLocation) {
   var tweetsneu = [];
   d3.csv(fileLocation).then(function(data) {
     data.filter(function(d, i) {
-      tweets.push(d.tweets);
+      tweets.push(d.cleaned_tweets);
       tweetspos.push(d.pos);
       tweetsneg.push(d.neg);
       tweetsneu.push(d.neu);
@@ -123,10 +123,8 @@ function init(ship) {
   vaderFile = "../vader files/"+ship+"_vader.csv";
   var fileArr = [rbaFile, textBlobFile, vaderFile];
   fetchData(fileArr);
-  if (ship == 'varchie') {
-    top5Loc = "../"+ship+"Top5.csv";
-    fetchTop5(top5Loc);
-  }
+  top5Loc = "../vader files/"+ship+"Top5.csv";
+  fetchTop5(top5Loc);
   // fetchData(rbaFile, "rba");
   // textBlobFile = "../"+ship+"Blob.csv";
   //fetchData(textBlobFile, "textBlob");
