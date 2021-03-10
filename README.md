@@ -11,12 +11,11 @@
 
 ## Project Design
 
-The objective of this project is to gather and analyze Riverdale tweets related to popular couples (ships) on the show. 
-** will comeback and edit **
+The objective of this project is to gather and analyze Riverdale tweets related to popular couples (ships) on the show. We want to see who fans are shipping and why are they shipping these ships. Who will win the ship wars?
 
-## Dataset Used
-
-
+## Questions
+Who is the most popular ship?
+What kind of insights can we get about ships & their fandoms from their tweet sentiments?
 
 ## Top 5 Riverdale Ships
 
