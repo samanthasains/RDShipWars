@@ -24,3 +24,6 @@ The objective of this project is to gather and analyze Riverdale tweets related 
 ## Questions
 1. Who is the most popular ship?
 2. What kind of insights can we get about ships & their fandoms from their tweet sentiments?
+
+## Final Presentation
+Find final presentation deck here: https://docs.google.com/presentation/d/1YWo1Q8FYa7QkuicQZd86DgHvZKKR7EltarrzUjrRmiQ/edit?usp=sharing
